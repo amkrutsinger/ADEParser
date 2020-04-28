@@ -4,7 +4,8 @@
 	publisher: MIT Press
 	---
 
-	0. "Do all of these functions together constitute a meaningful functional unit in the brain? Could one actually point to a place in the brain (or a network of such places) as the seat of human responsibility? We believe that the answer to these last two questions is yes." (2020-04-20T05:02:06Z)
+	
+0. "Do all of these functions together constitute a meaningful functional unit in the brain? Could one actually point to a place in the brain (or a network of such places) as the seat of human responsibility? We believe that the answer to these last two questions is yes." (2020-04-20T05:02:06Z)
 
 > > Note: 
 

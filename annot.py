@@ -55,6 +55,7 @@ def export(metadata, annotations, filename):
 	"""
 	export = []
 	export.append(metadata)
+	export.append("\n")
 
 	# parse through each annotation, enumerating each 
 	for i, annotation in enumerate(annotations):
