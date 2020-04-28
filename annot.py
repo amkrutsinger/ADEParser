@@ -60,11 +60,11 @@ def export(metadata, annotations, filename):
 	for i, annotation in enumerate(annotations):
 	    date = annotation.date.get_text()
 	    pageInfo = annotation.title.get_text()
-	    page = "pg. " + re.findall(r'\d+', pageInfo)[0]
+	    page = "pp. " + re.findall(r'\d+', pageInfo)[0]
 	    citation = annotation.target.find('text').get_text()
 	    export.append('{}. "{}" [{}]({})\n\n'.format(i,citation, page, date))
 	    note = annotation.content.find('text')
-	    if note:
+	    if note and note.get_text() != '':
 	        export.append('> > Note: ' + note.get_text() + "\n\n")
 	
 	with open(filename + ".md", "w", encoding = "utf-8") as result:
