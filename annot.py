@@ -1,7 +1,7 @@
 import os
 import sys
 from bs4 import BeautifulSoup
-
+import re
 
 def readlines(filename):
 	"""function: takes in a .annot and reads the lines
@@ -56,12 +56,13 @@ def export(metadata, annotations, filename):
 	export = []
 	export.append(metadata)
 	export.append("\n")
-
 	# parse through each annotation, enumerating each 
 	for i, annotation in enumerate(annotations):
 	    date = annotation.date.get_text()
+	    pageInfo = annotation.title.get_text()
+	    page = "pg. " + re.findall(r'\d+', pageInfo)[0]
 	    citation = annotation.target.find('text').get_text()
-	    export.append('{}. "{}" ({})\n\n'.format(i,citation, date))
+	    export.append('{}. "{}" [{}]({})\n\n'.format(i,citation, page, date))
 	    note = annotation.content.find('text')
 	    if note:
 	        export.append('> > Note: ' + note.get_text() + "\n\n")
