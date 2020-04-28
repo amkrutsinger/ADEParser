@@ -62,7 +62,7 @@ def export(metadata, annotations, filename):
 	    pageInfo = annotation.title.get_text()
 	    page = "pp. " + re.findall(r'\d+', pageInfo)[0]
 	    citation = annotation.target.find('text').get_text()
-	    export.append('{}. "{}" [{}]({})\n\n'.format(i,citation, page, date))
+	    export.append('{}. "{}" \[{}\] ({})\n\n'.format(i,citation, page, date))
 	    note = annotation.content.find('text')
 	    if note and note.get_text() != '':
 	        export.append('> > Note: ' + note.get_text() + "\n\n")
