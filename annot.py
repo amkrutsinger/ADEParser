@@ -65,7 +65,7 @@ def export(metadata, annotations, filename):
 	    export.append('{}. "{}" \[{}\] ({})\n\n'.format(i,citation, page, date))
 	    note = annotation.content.find('text')
 	    if note and note.get_text() != '':
-	        export.append('> > Note: ' + note.get_text() + "\n\n")
+	        export.append('> > > Note: ' + note.get_text() + "\n\n")
 	
 	with open(filename + ".md", "w", encoding = "utf-8") as result:
 		result.writelines(export)
