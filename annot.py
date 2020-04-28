@@ -19,24 +19,31 @@ def readlines(filename):
 		readline(file)
 
 
-def parse(contents):
+def parse(contents, book_title, book_author, book_publisher):
 	"""function: uses Beautiful Soup to parse xhtml bodies of annotations
 	   Input: parsed text (contents), and an export filename (with quotations)
 	   Output: metadata and string with annotations stripped of any XHTML tags
 	"""
 	soup = BeautifulSoup(contents, 'lxml-xml')
-	title = soup.find('title').get_text()
-	author = soup.find('creator').get_text() 
-	#publisher = soup.find('publisher').get_text()
+	title = book_title
+	author = book_author
+	publisher = book_publisher
+
+	# using beautiful soup
+	# title = soup.find('title').get_text()
+	# author = soup.find('creator').get_text() 
+	# publisher = soup.find('publisher').get_text()
+
 	annotations = soup.find_all('annotation')
 
 	# YAML metadata
-	metadata ="""---
+	metadata = """---
 	title: {}
 	author: {}
+	publisher: {}
 	---
 
-	""".format(title, author)
+	""".format(title, author, publisher)
 	return metadata, annotations
 
 
@@ -56,7 +63,7 @@ def export(metadata, annotations, filename):
 	    export.append('{}. "{}" ({})\n\n'.format(i,citation, date))
 	    note = annotation.content.find('text')
 	    if note:
-	        export.append('> > ' + note.get_text() + "\n\n")
+	        export.append('> > Note: ' + note.get_text() + "\n\n")
 	
 	with open(filename + ".md", "w", encoding = "utf-8") as result:
 		result.writelines(export)
@@ -64,15 +71,19 @@ def export(metadata, annotations, filename):
 
 def main():
 	print("Welcome to the .annot to Markdown converter")
+
 	file = input("What is the .annot file you would like to convert? ")
+	title = input("What is the title of your book? ")
+	author = input("Who is/are the author(s) of your book? ")
+	publisher = input("Who is the publisher of your book? ")
+
 	exportFile = input("What would you like to call the .md file? ")
 	contents = readlines(file)
-	metadata, annnotations = parse(contents)
-	print(metadata)
-	print(annnotations)
+	metadata, annnotations = parse(contents, title, author, publisher)
 	export(metadata, annnotations, exportFile)
+	
 	print("Thank you for using this tool!")
 
 
 if __name__== "__main__":
- main()
+	main()
